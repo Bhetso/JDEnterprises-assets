@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JD Enterprise Management</title>
+
+<link rel="apple-touch-icon" href="JDLogo.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="manifest" href="manifest-management.json">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="JD Mgmt">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#16321F">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(155deg, #20492C, #16321F 75%);
+    color: #F4F1E8;
+  }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; min-height: 100dvh;
+    padding: 24px;
+    padding-top: calc(24px + env(safe-area-inset-top));
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  }
+  .card {
+    width: 100%; max-width: 360px;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; gap: 16px;
+  }
+  .logo-tile {
+    width: 76px; height: 76px; border-radius: 20px;
+    background: #FFFFFF;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    overflow: hidden;
+  }
+  .logo-tile img { width: 64px; height: 64px; object-fit: contain; }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 24px; margin: 0;
+    letter-spacing: .01em;
+  }
+  .tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 12.5px; letter-spacing: .08em;
+    text-transform: uppercase; color: #CBAF6B; margin-top: -10px;
+  }
+  p.sub { margin: 0; color: #CFE3D5; font-size: 14px; line-height: 1.5; }
+  .open-btn {
+    display: inline-block; width: 100%;
+    background: #B5652D; color: #FFFFFF;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px;
+    padding: 14px 20px; border-radius: 12px;
+    text-decoration: none; margin-top: 6px;
+    box-shadow: 0 6px 18px rgba(181,101,45,.35);
+  }
+  .hint {
+    font-size: 12.5px; color: #B9CBBF; line-height: 1.65; margin-top: 2px;
+  }
+  .spinner-view { display: none; flex-direction: column; align-items: center; gap: 16px; }
+  .spinner {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 3px solid rgba(255,255,255,.25); border-top-color: #FFFFFF;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  body.is-standalone .button-view { display: none; }
+  body.is-standalone .spinner-view { display: flex; }
+</style>
+</head>
+<body>
+  <div class="card button-view" id="buttonView">
+    <div class="logo-tile"><img src="JDLogo.png" alt="JD Enterprise"></div>
+    <h1>JD Enterprise</h1>
+    <div class="tag">Management App</div>
+    <p class="sub">For the Owner and Supervisors.</p>
+    <a class="open-btn" href="https://script.google.com/macros/s/AKfycbzgobUxcw5ImpPhpaYvmQ3pBWOhoTJKLaR9eP5gz8FdQIz8Tq1fOih2lzVqCFcBoWTJuw/exec?app=mgmt">Open JD Enterprise</a>
+    <p class="hint">
+      First time here? Use Share&nbsp;&rarr;&nbsp;Add to Home Screen instead of tapping Open, so the app installs with its own icon.<br>
+      Android: use the Chrome menu &rarr; Install app (or the install banner) instead.
+    </p>
+  </div>
+  <div class="card spinner-view" id="spinnerView">
+    <div class="logo-tile"><img src="JDLogo.png" alt="JD Enterprise"></div>
+    <div class="spinner"></div>
+    <p class="sub">Opening&hellip;</p>
+  </div>
+
+<script>
+  var isStandalone = window.navigator.standalone === true ||
+    window.matchMedia('(display-mode: standalone)').matches;
+  if (isStandalone) {
+    document.body.classList.add('is-standalone');
+    window.location.replace('https://script.google.com/macros/s/AKfycbzgobUxcw5ImpPhpaYvmQ3pBWOhoTJKLaR9eP5gz8FdQIz8Tq1fOih2lzVqCFcBoWTJuw/exec?app=mgmt');
+  }
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  }
+</script>
+</body>
+</html>
